@@ -1,5 +1,7 @@
 import { app, BrowserWindow } from 'electron'
 
+import glob from 'glob'
+import path from 'path'
 /**
  * Set `__static` path to static files in production
  * https://simulatedgreg.gitbooks.io/electron-vue/content/en/using-static-assets.html
@@ -12,7 +14,7 @@ let mainWindow
 const winURL = process.env.NODE_ENV === 'development'
   ? `http://localhost:9080`
   : `file://${__dirname}/index.html`
-
+loadDemos();
 function createWindow () {
   /**
    * Initial window options
@@ -43,6 +45,12 @@ app.on('activate', () => {
     createWindow()
   }
 })
+
+//加载主进程
+function loadDemos () {
+	const files = glob.sync(path.join(__dirname, 'process/*.js'))
+	files.forEach((file) => { require(file) })
+}
 
 /**
  * Auto Updater
