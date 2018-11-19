@@ -1,5 +1,6 @@
 <template>
     <div id="home">
+        123
         <button class="start">开始抽奖</button>
     </div>
 </template>
